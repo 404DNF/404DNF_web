@@ -1,87 +1,126 @@
+/* ===== NAVBAR ===== */
 .navbar {
-  position: sticky;          /* 상단 고정 */
-  top: 0;                    /* 뷰포트의 맨 위에 고정 */
-  z-index: 1000;             /* 다른 요소 위에 표시되도록 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  padding: 0 4%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;                     /* ✅ 높이 증가 */
-  padding: 0 2rem;  
-  background-color: #ffffff;
-  border-bottom: 1px solid #E6E6E6;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04); /* 선택사항: 스크롤 시 그림자 효과 */
+  z-index: 1000;
+  transition: all 0.3s ease;
+
+  /* 배경: 기본은 반투명 어두운 회색 (두 번째 이미지처럼) */
+  background: rgba(25, 25, 25, 0.85);
+  backdrop-filter: blur(10px);
+  color: #fefefe;
+}
+
+/* 스크롤 시 살짝 밝은 회색으로 변경 */
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.96);
+  color: #1a1a1a;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
 /* 로고 */
-.gnb-logo-svg {
-  height: 18px;
-  object-fit: contain;
-  padding-right: 8rem;
+.navbar-logo .navbar-brand {
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-decoration: none;
+  color: #fefefe;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
 }
 
-/* 가운데 메뉴 */
+/* 스크롤 시에도 브랜드 색상 유지 */
+.navbar.scrolled .navbar-logo .navbar-brand {
+  color: #1a73e8;
+}
+
+/* 메뉴 */
 .navbar-menu {
   display: flex;
   flex: 2;
   justify-content: center;
-  gap: 3rem;
+  gap: 2.8rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-
 .navbar-menu a {
   text-decoration: none;
-  color: #222;
-  font-weight: 500;
+  color: #fefefe;
+  font-weight: 600;
   font-size: 0.95rem;
-  
-}
-
-/* li를 기준 잡기 */
-.navbar-menu li {
   position: relative;
+  transition: color 0.25s ease;
 }
 
-/* 기존 링크 밑줄 수정 */
+/* 스크롤 시 메뉴 텍스트는 어두운색으로 */
+.navbar.scrolled .navbar-menu a {
+  color: #1a1a1a;
+}
+
+/* 호버 효과 */
+.navbar-menu a:hover {
+  color: #4fc3f7;
+}
+
 .navbar-menu li a::after {
   content: '';
   position: absolute;
-
-  /* 아래와 같이 위치 변경 */
   left: 0;
   right: 0;
-  bottom: -23px; /* ← a 아래가 아니라 navbar 아래로! */
-
-  height: 3px;
-  background-color: #00c8d7;
-
-  /* 밑줄 중앙 정렬 (선택사항) */
-  margin: 0 auto;
-
-  /* 애니메이션 */
+  bottom: -6px;
+  height: 2px;
+  background-color: #4fc3f7;
   width: 0%;
   transition: width 0.3s ease;
 }
-
-/* hover 시 밑줄 확장 */
 .navbar-menu li a:hover::after {
   width: 100%;
 }
 
-/* 오른쪽 버튼 */
+/* 오른쪽 로그인 버튼 */
 .navbar-login {
   flex: 1;
   display: flex;
   justify-content: flex-end;
 }
 
-.navbar-login .login-btn {
-  background-color: #26c6da;
-  color: white;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
+.login-btn {
+  background-color: #4fc3f7;
+  color: #ffffff;
+  padding: 0.62rem 1.15rem;
+  border-radius: 10px;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  box-shadow: 0 6px 14px rgba(79, 195, 247, 0.35);
+  transition: all 0.25s ease;
+}
+.login-btn:hover {
+  background-color: #38b6ff;
+  transform: translateY(-1px);
+}
+
+/* 스크롤 시 버튼도 명도 유지 */
+.navbar.scrolled .login-btn {
+  background-color: #4fc3f7;
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(79, 195, 247, 0.28);
+}
+.navbar.scrolled .login-btn:hover {
+  background: #38b6ff;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .navbar-menu {
+    gap: 1.4rem;
+  }
 }
